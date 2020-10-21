@@ -1,6 +1,5 @@
 import axios from "axios";
 import cogoToast from "cogo-toast";
-// import { setAlert } from './alert';
 
 import {
   GET_PROFILE,
