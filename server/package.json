@@ -1,7 +1,7 @@
 {
   "name": "mern-social",
   "version": "0.0.0",
-  "description": "This is a social networking app ",
+  "description": "This is a social networking app",
   "main": "app.js",
   "keywords": [
     "react",

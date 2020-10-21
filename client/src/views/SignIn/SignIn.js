@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { login, googleLogin } from "../../actions/auth";
 
 import { Link as RouterLink, Redirect } from "react-router-dom";
-// import PropTypes from 'prop-types';
+
 
 import validate from "validate.js";
 import { makeStyles } from "@material-ui/styles";
@@ -18,7 +18,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { Facebook as FacebookIcon, Google as GoogleIcon } from "../../icons";
+import { Google as GoogleIcon } from "../../icons";
 require("dotenv").config();
 
 const schema = {
@@ -106,18 +106,14 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     marginTop: theme.spacing(2),
+    
   },
   signInButton: {
     margin: theme.spacing(2, 0),
   },
 }));
 
-const SignIn = ({
-  login,
-  isAuthenticated,
-  history,
-  googleLogin,
-}) => {
+const SignIn = ({ login, isAuthenticated, history, googleLogin }) => {
   const classes = useStyles();
 
   const [formState, setFormState] = useState({
@@ -170,7 +166,7 @@ const SignIn = ({
 
   const responseGoogle = (response) => {
     // console.log(response);
-    googleLogin(response)
+    googleLogin(response);
   };
 
   const handleSignIn = (event) => {
@@ -207,17 +203,6 @@ const SignIn = ({
                   Sign in with social media
                 </Typography>
                 <Grid className={classes.socialButtons} container spacing={2}>
-                  <Grid item>
-                    <Button
-                      color="primary"
-                      onClick={handleSignIn}
-                      size="large"
-                      variant="contained"
-                    >
-                      <FacebookIcon className={classes.socialIcon} />
-                      Login with Facebook
-                    </Button>
-                  </Grid>
                   <Grid item>
                     <GoogleLogin
                       clientId="241530913077-q10ivm48gqomk8mj40ig1dadm0449f1u.apps.googleusercontent.com" /* {`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`} */
@@ -303,6 +288,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login, googleLogin })(
-  SignIn
-);
+export default connect(mapStateToProps, { login, googleLogin })(SignIn);

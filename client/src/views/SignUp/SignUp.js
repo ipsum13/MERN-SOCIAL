@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { register } from '../../actions/auth';
-import { Link as RouterLink } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { register } from "../../actions/auth";
+import { Link as RouterLink } from "react-router-dom";
 // import PropTypes from 'prop-types';
-import validate from 'validate.js';
-import { makeStyles } from '@material-ui/styles';
-import { RandomQuote } from '../../components';
+import validate from "validate.js";
+import { makeStyles } from "@material-ui/styles";
+import { RandomQuote } from "../../components";
 
 import {
   Grid,
@@ -15,114 +15,114 @@ import {
   Link,
   FormHelperText,
   Checkbox,
-  Typography
-} from '@material-ui/core';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+  Typography,
+} from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 const schema = {
   firstName: {
-    presence: { allowEmpty: false, message: 'is required' },
+    presence: { allowEmpty: false, message: "is required" },
     length: {
-      maximum: 32
-    }
+      maximum: 32,
+    },
   },
   lastName: {
-    presence: { allowEmpty: false, message: 'is required' },
+    presence: { allowEmpty: false, message: "is required" },
     length: {
-      maximum: 32
-    }
+      maximum: 32,
+    },
   },
   email: {
-    presence: { allowEmpty: false, message: 'is required' },
+    presence: { allowEmpty: false, message: "is required" },
     email: true,
     length: {
-      maximum: 64
-    }
+      maximum: 64,
+    },
   },
   password: {
-    presence: { allowEmpty: false, message: 'is required' },
+    presence: { allowEmpty: false, message: "is required" },
     length: {
-      maximum: 128
-    }
+      maximum: 128,
+    },
   },
   policy: {
-    presence: { allowEmpty: false, message: 'is required' },
-    checked: true
-  }
+    presence: { allowEmpty: false, message: "is required" },
+    checked: true,
+  },
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.default,
-    height: '100vh'
+    height: "100vh",
   },
   grid: {
-    height: '100%'
+    height: "100%",
   },
   quoteContainer: {
-    [theme.breakpoints.down('md')]: {
-      display: 'none'
-    }
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
   name: {
     marginTop: theme.spacing(3),
-    color: theme.palette.white
+    color: theme.palette.white,
   },
   bio: {
-    color: theme.palette.white
+    color: theme.palette.white,
   },
   contentContainer: {},
   content: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column'
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   contentHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     paddingTop: theme.spacing(5),
     paddingBototm: theme.spacing(2),
     paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2)
+    paddingRight: theme.spacing(2),
   },
   logoImage: {
-    marginLeft: theme.spacing(4)
+    marginLeft: theme.spacing(4),
   },
   contentBody: {
     flexGrow: 1,
-    display: 'flex',
-    alignItems: 'center',
-    [theme.breakpoints.down('md')]: {
-      justifyContent: 'center'
-    }
+    display: "flex",
+    alignItems: "center",
+    [theme.breakpoints.down("md")]: {
+      justifyContent: "center",
+    },
   },
   form: {
     paddingLeft: 100,
     paddingRight: 100,
     paddingBottom: 125,
     flexBasis: 700,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2)
-    }
+      paddingRight: theme.spacing(2),
+    },
   },
   title: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
   textField: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   policy: {
     marginTop: theme.spacing(1),
-    display: 'flex',
-    alignItems: 'center'
+    display: "flex",
+    alignItems: "center",
   },
   policyCheckbox: {
-    marginLeft: '-14px'
+    marginLeft: "-14px",
   },
   signUpButton: {
-    margin: theme.spacing(2, 0)
-  }
+    margin: theme.spacing(2, 0),
+  },
 }));
 
 const SignUp = ({ register, isAuthenticated, history }) => {
@@ -131,49 +131,47 @@ const SignUp = ({ register, isAuthenticated, history }) => {
     isValid: false,
     values: {},
     touched: {},
-    errors: {}
+    errors: {},
   });
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    name: '',
-    email: '',
-    password: '',
-    password2: ''
+    firstName: "",
+    lastName: "",
+    name: "",
+    email: "",
+    password: "",
+    password2: "",
   });
 
   var { firstName, lastName, name, email, password } = formData;
 
-
   useEffect(() => {
     const errors = validate(formState.values, schema);
 
-    setFormState(formState => ({
+    setFormState((formState) => ({
       ...formState,
       isValid: errors ? false : true,
-      errors: errors || {}
+      errors: errors || {},
     }));
   }, [formState.values]);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     event.persist();
     setFormData({ ...formData, [event.target.name]: event.target.value });
 
-
-    setFormState(formState => ({
+    setFormState((formState) => ({
       ...formState,
       values: {
         ...formState.values,
         [event.target.name]:
-          event.target.type === 'checkbox'
+          event.target.type === "checkbox"
             ? event.target.checked
-            : event.target.value
+            : event.target.value,
       },
       touched: {
         ...formState.touched,
-        [event.target.name]: true
-      }
+        [event.target.name]: true,
+      },
     }));
   };
 
@@ -181,38 +179,26 @@ const SignUp = ({ register, isAuthenticated, history }) => {
     history.goBack();
   };
 
-  const handleSignUp = event => {
+  const handleSignUp = (event) => {
     event.preventDefault();
     name = firstName + " " + lastName;
-    register( name, email, password, history );
+    register(name, email, password, history);
   };
 
- /*  if (isAuthenticated) {
+  /*  if (isAuthenticated) {
     return <Redirect to="/signin" />;
   } */
 
-  const hasError = field =>
+  const hasError = (field) =>
     formState.touched[field] && formState.errors[field] ? true : false;
 
   return (
     <div className={classes.root}>
-      <Grid
-        className={classes.grid}
-        container
-      >
-        <Grid
-          className={classes.quoteContainer}
-          item
-          lg={5}
-        >
-        <RandomQuote />
+      <Grid className={classes.grid} container>
+        <Grid className={classes.quoteContainer} item lg={5}>
+          <RandomQuote />
         </Grid>
-        <Grid
-          className={classes.content}
-          item
-          lg={7}
-          xs={12}
-        >
+        <Grid className={classes.content} item lg={7} xs={12}>
           <div className={classes.content}>
             <div className={classes.contentHeader}>
               <IconButton onClick={handleBack}>
@@ -220,28 +206,19 @@ const SignUp = ({ register, isAuthenticated, history }) => {
               </IconButton>
             </div>
             <div className={classes.contentBody}>
-              <form
-                className={classes.form}
-                onSubmit={handleSignUp}
-              >
-                <Typography
-                  className={classes.title}
-                  variant="h2"
-                >
+              <form className={classes.form} onSubmit={handleSignUp}>
+                <Typography className={classes.title} variant="h2">
                   Create new account
                 </Typography>
-                <Typography
-                  color="textSecondary"
-                  gutterBottom
-                >
+                <Typography color="textSecondary" gutterBottom>
                   Use your email to create new account
                 </Typography>
                 <TextField
                   className={classes.textField}
-                  error={hasError('firstName')}
+                  error={hasError("firstName")}
                   fullWidth
                   helperText={
-                    hasError('firstName') ? formState.errors.firstName[0] : null
+                    hasError("firstName") ? formState.errors.firstName[0] : null
                   }
                   label="First name"
                   name="firstName"
@@ -252,10 +229,10 @@ const SignUp = ({ register, isAuthenticated, history }) => {
                 />
                 <TextField
                   className={classes.textField}
-                  error={hasError('lastName')}
+                  error={hasError("lastName")}
                   fullWidth
                   helperText={
-                    hasError('lastName') ? formState.errors.lastName[0] : null
+                    hasError("lastName") ? formState.errors.lastName[0] : null
                   }
                   label="Last name"
                   name="lastName"
@@ -266,10 +243,10 @@ const SignUp = ({ register, isAuthenticated, history }) => {
                 />
                 <TextField
                   className={classes.textField}
-                  error={hasError('email')}
+                  error={hasError("email")}
                   fullWidth
                   helperText={
-                    hasError('email') ? formState.errors.email[0] : null
+                    hasError("email") ? formState.errors.email[0] : null
                   }
                   label="Email address"
                   name="email"
@@ -280,10 +257,10 @@ const SignUp = ({ register, isAuthenticated, history }) => {
                 />
                 <TextField
                   className={classes.textField}
-                  error={hasError('password')}
+                  error={hasError("password")}
                   fullWidth
                   helperText={
-                    hasError('password') ? formState.errors.password[0] : null
+                    hasError("password") ? formState.errors.password[0] : null
                   }
                   label="Password"
                   name="password"
@@ -305,7 +282,7 @@ const SignUp = ({ register, isAuthenticated, history }) => {
                     color="textSecondary"
                     variant="body1"
                   >
-                    I have read the{' '}
+                    I have read the{" "}
                     <Link
                       color="primary"
                       component={RouterLink}
@@ -317,7 +294,7 @@ const SignUp = ({ register, isAuthenticated, history }) => {
                     </Link>
                   </Typography>
                 </div>
-                {hasError('policy') && (
+                {hasError("policy") && (
                   <FormHelperText error>
                     {formState.errors.policy[0]}
                   </FormHelperText>
@@ -333,16 +310,9 @@ const SignUp = ({ register, isAuthenticated, history }) => {
                 >
                   Sign up now
                 </Button>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Have an account?{' '}
-                  <Link
-                    component={RouterLink}
-                    to="/signin"
-                    variant="h6"
-                  >
+                <Typography color="textSecondary" variant="body1">
+                  Have an account?{" "}
+                  <Link component={RouterLink} to="/signin" variant="h6">
                     Sign in
                   </Link>
                 </Typography>
@@ -356,7 +326,7 @@ const SignUp = ({ register, isAuthenticated, history }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated
-})
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
 export default connect(mapStateToProps, { register })(SignUp);

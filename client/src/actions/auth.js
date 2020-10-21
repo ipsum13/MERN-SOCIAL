@@ -41,7 +41,7 @@ export const register = (name, email, password, history) => async (
   try {
     const res = await axios.post("/api/users/register", body, config);
     if (res.status === 200) {
-      cogoToast.success('User successfully registered', {
+      cogoToast.success("User successfully registered", {
         position: "top-right",
       });
     }
@@ -65,7 +65,6 @@ export const register = (name, email, password, history) => async (
         position: "top-right",
       });
     }
-
 
     dispatch({
       type: REGISTER_FAIL,
@@ -98,16 +97,11 @@ export const login = (email, password) => async (dispatch) => {
     dispatch(loadUser());
   } catch (err) {
     // const errors = err.response.data.errors;
-    if (err.response.status === 400) {
-      cogoToast.error(err.response.data.msg, {
-        position: "top-right",
-      });
-    }
-    if (err.response.status === 500) {
-      cogoToast.error(err.response.data.msg, {
-        position: "top-right",
-      });
-    }
+
+    cogoToast.error("Login error. Try to login again", {
+      position: "top-right",
+    });
+
     dispatch({
       type: LOGIN_FAIL,
     });
@@ -121,7 +115,7 @@ export const login = (email, password) => async (dispatch) => {
   });
   dispatch(loadUser());
 } */
-export const googleLogin = (response) => async dispatch => {
+export const googleLogin = (response) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -162,7 +156,7 @@ export const googleLogin = (response) => async dispatch => {
       type: LOGIN_FAIL,
     });
   }
-} 
+};
 
 // Logout / Clear Profile
 export const logout = () => (dispatch) => {

@@ -19,12 +19,12 @@ import { Link } from "react-router-dom";
 // import {remove, like, unlike} from './api-post.js'
 
 import { addLike, removeLike, deletePost } from "../../../../actions/post";
-
+import ReactPlayer from "react-player";
 
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 700,
-   margin: 'auto',
+    margin: "auto",
     marginBottom: theme.spacing(1),
     backgroundColor: "rgba(0, 0, 0, 0.06)",
   },
@@ -57,7 +57,7 @@ const PostCard = ({
   removeLike,
   deletePost,
   auth,
-  post: { _id, text, name, avatar, user, likes, comments, date },
+  post: { _id, text, link, name, avatar, user, likes, comments, date },
 }) => {
   const classes = useStyles();
   return (
@@ -65,14 +65,14 @@ const PostCard = ({
       <CardHeader
         avatar={<Avatar src={avatar} />}
         action={
-          auth.user._id === user &&
-          <IconButton onClick={() => deletePost(_id)}>
-            <DeleteIcon />
-          </IconButton>
+          auth.user &&
+          auth.user._id === user && (
+            <IconButton onClick={() => deletePost(_id)}>
+              <DeleteIcon />
+            </IconButton>
+          )
         }
-        
         title={name}
-        
         subheader={new Date(date).toDateString()}
         className={classes.cardHeader}
       />
@@ -80,6 +80,7 @@ const PostCard = ({
         <Typography component="p" className={classes.text}>
           {text}
         </Typography>
+        {link ? <ReactPlayer url={link} width="90%" style={{display: 'table', margin: "0 auto"}} /> : null}
       </CardContent>
       <CardActions>
         <IconButton
@@ -91,7 +92,6 @@ const PostCard = ({
           <ThumbUp />
         </IconButton>{" "}
         <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
-        
         <IconButton
           onClick={() => removeLike(_id)}
           className={classes.button}
@@ -99,24 +99,20 @@ const PostCard = ({
           color="secondary"
         >
           <ThumbDown />
-        </IconButton>
-        {" "}
+        </IconButton>{" "}
         <span> </span>
-        <Link to={`/posts/${_id}`}>
-          Comment
-        </Link>{" "}
+        <Link to={`/posts/${_id}`}>Comment</Link>{" "}
         {comments.length > 0 && (
           <span className="comment-count">{comments.length}</span>
         )}
       </CardActions>
       <Divider />
-      
     </Card>
   );
 };
 
 PostCard.defaultProps = {
-  showActions: true
+  showActions: true,
 };
 
 const mapStateToProps = (state) => ({

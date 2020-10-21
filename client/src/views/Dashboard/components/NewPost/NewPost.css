@@ -1,0 +1,29 @@
+.youtube-show {
+    display: flex;
+    width: 90%;
+    margin-left: 1vw;
+    padding: 0.5vw;
+    margin-top: 1vw;
+    
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+.youtube-hide {
+    display: none;
+}
+
+.gif-show {
+    display: flex;
+    width: 90%;
+    margin-left: 1vw;
+    padding: 0.5vw;
+    margin-top: 1vw;
+    
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+.gif-hide {
+    display: none;
+}

@@ -26,13 +26,14 @@ router.post(
 
       const newPost = new Post({
         text: req.body.text,
+        link: req.body.link,
         name: user.name,
         avatar: profile.profilePic,
         user: req.user.id,
       });
 
       const post = await newPost.save();
-
+      
       res.json(post);
     } catch (err) {
       console.error(err.message);

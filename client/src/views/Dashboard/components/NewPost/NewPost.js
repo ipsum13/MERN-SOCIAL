@@ -14,7 +14,9 @@ import Icon from "@material-ui/core/Icon";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
-import {PhotoCamera, GifTwoTone } from "@material-ui/icons";
+import { YouTube } from "@material-ui/icons";
+
+import "./NewPost.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,9 +39,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 8,
     paddingBottom: 8,
   },
-  photoButton: {
+  youtubeButton: {
     height: 30,
     marginBottom: 5,
+    color: "#FF0000",
   },
   input: {
     display: "none",
@@ -57,21 +60,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NewPost = ({ profile: {profile}, addPost }) => {
+const NewPost = ({ profile: { profile }, addPost }) => {
   const classes = useStyles();
   const [text, setText] = useState("");
+  const [link, setLink] = useState("");
+  const [youtube, setYoutube] = useState(false);
   const [values, setValues] = useState({
     text: "",
     photo: "",
     error: "",
     user: {},
+    link: ""
   });
-  
-  const handleChange = (name) => (event) => {
-    const value = name === "photo" ? event.target.files[0] : event.target.value;
-    setValues({ ...values, [name]: value });
+
+
+  const toggleYoutubeInput = () => {
+    setYoutube(!youtube);
+    console.log("youtube");
   };
- 
+
   return (
     <div className={classes.root}>
       <Card className={classes.card}>
@@ -83,8 +90,9 @@ const NewPost = ({ profile: {profile}, addPost }) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            addPost({ text });
+            addPost({ text, link });
             setText("");
+            setLink("")
           }}
         >
           <CardContent className={classes.cardContent}>
@@ -98,31 +106,23 @@ const NewPost = ({ profile: {profile}, addPost }) => {
               margin="normal"
             />
             <input
-              accept="image/*"
-              onChange={handleChange("photo")}
-              className={classes.input}
-              id="icon-button-file"
-              type="file"
+              name="extra"
+              id="extra"
+              className={"youtube-" + (youtube ? "show" : "hide")}
+              placeholder="https://www.youtube.com/watch?v=dO368WjwyFs"
+              onChange={(e) => setLink(e.target.value)}
             />
-            <label htmlFor="icon-button-file">
-              <IconButton
-                color="secondary"
-                className={classes.photoButton}
-                component="span"
-              >
-                <PhotoCamera />
+            <button
+              type="button"
+              onClick={toggleYoutubeInput}
+              style={{ border: "none", background: "#fff" }}
+              
+            >
+              <IconButton className={classes.youtubeButton} component="span">
+                <YouTube />
               </IconButton>
-            </label>{" "}
-            <span className={classes.filename}>
-              {values.photo ? values.photo.name : ""}
-            </span>
-            <IconButton
-                color="secondary"
-                className={classes.photoButton}
-                component="span"
-              >
-                <GifTwoTone />
-              </IconButton>
+            </button>{" "}
+            
             {values.error && (
               <Typography component="p" color="error">
                 <Icon color="error" className={classes.error}>
@@ -152,8 +152,8 @@ const NewPost = ({ profile: {profile}, addPost }) => {
 NewPost.propTypes = {
   addPost: PropTypes.func.isRequired,
 };
-const mapStateToProps = state => ({
-  profile: state.profile
-})
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
 
 export default connect(mapStateToProps, { addPost })(NewPost);

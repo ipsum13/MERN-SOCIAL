@@ -10,6 +10,9 @@ const PostSchema = new Schema({
     type: String,
     required: true,
   },
+  link: {
+    type: String,
+  },
   photo: {
     data: Buffer,
     contentType: String

@@ -64,12 +64,12 @@ const Sidebar = (props) => {
    
     {
       title: 'Profile',
-      href: `/profile/${props.auth.user._id}`,
+      href: `/profile/${props.auth.user && props.auth.user._id}`,
       icon: <AccountBoxIcon />
     },
     {
       title: 'Settings',
-      href: `/profile/edit/${props.auth.user._id}`,
+      href: `/profile/edit/${props.auth.user && props.auth.user._id}`,
       icon: <SettingsIcon />
     }
   ];
