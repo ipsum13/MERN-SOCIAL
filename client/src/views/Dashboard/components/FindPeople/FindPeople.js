@@ -12,7 +12,8 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
     padding: theme.spacing(1),
-    margin: 0,
+    margin: '0',
+    
   }),
   title: {
     margin: `${theme.spacing(3)}px ${theme.spacing(1)}px ${theme.spacing(2)}px`,
@@ -33,15 +34,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FindPeople = ({ getProfiles, profile: { profiles, loading, user }, auth }) => {
+const FindPeople = ({ getProfiles, profile: { profiles, loading, }, auth }) => {
   useEffect(() => {
     getProfiles();
+    
   }, [getProfiles]);
   const classes = useStyles();
-
- /*  const showProfiles = () => {
-    return profiles.splice(profiles.findIndex(auth.user._id === user), 1)
-  } */
 
   return (
     <div>

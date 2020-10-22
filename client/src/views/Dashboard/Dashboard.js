@@ -10,7 +10,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(4)
+    padding: theme.spacing(2)
   }
 }));
 
@@ -25,8 +25,8 @@ const Dashboard = () => {
       >
         <Grid
           item
-          lg={7}
-          sm={9}
+          lg={8}
+          sm={12}
           xl={7}
           xs={12}
         >
@@ -36,8 +36,8 @@ const Dashboard = () => {
 
         <Grid
           item
-          lg={5}
-          sm={3}
+          lg={4}
+          sm={12}
           xl={5}
           xs={12}
         >

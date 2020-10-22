@@ -163,7 +163,12 @@ const Profile = ({
                 />
               )}
             </ListItem>
-
+            <ListItem style={{ marginTop: "5px" }}>
+              
+              <span>
+                <ListItemText primary={profile && profile.pronouns} />
+              </span>
+            </ListItem>
             <ListItem>
               <ListItemAvatar>
                 <Facebook fontSize="large" style={{ color: "#3b5998" }} />
@@ -181,17 +186,7 @@ const Profile = ({
             <ListItem style={{ marginTop: "10px" }}>
               <ListItemText primary={profile && profile.interests} />
             </ListItem>
-            <ListItem style={{ marginTop: "10px" }}>
-              <ListItemText
-                primary={
-                  profile &&
-                  "Birth Day: " + new Date(profile.birthDate).toDateString()
-                }
-              />
-              <span>
-                <ListItemText primary={profile && profile.pronouns} />
-              </span>
-            </ListItem>
+           
             <ListItem style={{ marginTop: "15px" }}>
               <LocationOn />
 

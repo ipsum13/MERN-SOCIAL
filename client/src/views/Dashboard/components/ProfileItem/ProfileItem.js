@@ -63,13 +63,7 @@ const ProfileItem = ({
                 <ViewIcon />
               </IconButton>
             </Link>
-            <Button
-              aria-label="Follow"
-              variant="contained"
-              color="primary" /* onClick={()=> {clickFollow(item, i)}} */
-            >
-              Follow
-            </Button>
+          
           </ListItemSecondaryAction>
         </ListItem>
         
