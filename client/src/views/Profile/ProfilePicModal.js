@@ -61,8 +61,6 @@ class ProfilePicModal extends Component {
 
   uploadPicture =  async () =>{
     const crop = this.cropper.current.cropper.getData();
-    //console.log(this.state.file);
-    //this.props.changeImage(this.state.file, crop);
     let formData = new FormData();
     formData.append("image", this.state.file);
     await this.props.updateProfilePic(formData);
@@ -76,13 +74,6 @@ class ProfilePicModal extends Component {
   }
 
   render() {
-    const modalCustomStyles = {
-      height: "fit-content",
-      width: "fit-content",
-      position: "absolute",
-      top: "20%",
-      left: "10%",
-    };
 
     return (
        <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">

@@ -56,10 +56,8 @@ const EditProfile = ({
     email, 
     bio, 
     location,
-    photo,
     pronouns,
     education,
-    birthDate,
     interests,
     twitter,
     facebook,
@@ -164,17 +162,6 @@ const EditProfile = ({
               onChange={onChange}
               fullWidth
             />
-       {/*    <TextField
-              autoFocus
-              margin="dense"
-              id="dob"
-              label="Birth Date"
-              type="date"
-              name="birthDate"
-              value={birthDate}
-              onChange={onChange}
-              fullWidth
-            /> */}
           <TextField
               autoFocus
               margin="dense"

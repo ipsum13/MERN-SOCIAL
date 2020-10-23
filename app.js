@@ -24,8 +24,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+//app.use(express.static(path.join(__dirname, '../client/build/index.html')));
+//app.use(express.static('client/build'));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/posts', postsRouter);
@@ -35,6 +36,13 @@ app.use('/api/profile', profileRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve('client', 'build', 'index.html'));
+  });
+}
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -46,5 +54,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;
