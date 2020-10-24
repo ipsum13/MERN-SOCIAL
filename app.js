@@ -25,8 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, '../client/build/index.html')));
-//app.use(express.static('client/build'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('client/build'));
+//app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/posts', postsRouter);
@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-if (process.env.NODE_ENV === 'production') {
+/* if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {
     res.sendFile(path.resolve('client', 'build', 'index.html'));
@@ -53,8 +53,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+}); */
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+	console.log(`Server listening on port ${PORT}.`);
 });
 
-
-
-module.exports = app;
+//module.exports = app;
